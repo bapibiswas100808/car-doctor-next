@@ -3,9 +3,29 @@ import Image from "next/image";
 import React from "react";
 import loginImage from "../../../public/assets/images/login/login.svg";
 import Link from "next/link";
+// import { FaFacebookF, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
+import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
 const SignUpPage = () => {
-  const handleRegister = async () => {};
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    const resp = await fetch("http://localhost:3000/signup/api", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    console.log(resp);
+    if (resp.status === 200) {
+      e.target.reset();
+    }
+  };
   return (
     <div>
       <div className="max-w-[1170px] mx-auto my-10">
@@ -56,6 +76,7 @@ const SignUpPage = () => {
                 Sign Up
               </button>
             </form>
+            <SocialSignIn />
             <div className="mt-5">
               <h2>Already Have an account?</h2>
               <p>

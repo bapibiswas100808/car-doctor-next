@@ -2,11 +2,28 @@
 import React from "react";
 import loginImage from "../../../public/assets/images/login/login.svg";
 import Image from "next/image";
-import { FaFacebookF, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
+// import { FaFacebookF, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
-const loginPage = () => {
-  const handleLogin = async () => {};
+const LoginPage = () => {
+  const Router = useRouter();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(resp);
+    if (resp.status === 200) {
+      Router.push("/");
+    }
+  };
   return (
     <div className="max-w-[1170px] mx-auto my-10">
       <div className="flex flex-col lg:flex-row">
@@ -44,15 +61,7 @@ const loginPage = () => {
               Login
             </button>
           </form>
-          <div className="text-center mt-5">
-            <h2 className="mb-3">Or Sign In With</h2>
-            <div className="text-xl flex gap-3 justify-center">
-              <FaFacebookF className="cursor-pointer border " />
-              <FaLinkedin className="cursor-pointer border " />
-              <FaGoogle className="cursor-pointer border " />
-              <FaGithub className="cursor-pointer border " />
-            </div>
-          </div>
+          <SocialSignIn />
           <div className="mt-5">
             <h2>Not Have an account?</h2>
             <p>
@@ -68,4 +77,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

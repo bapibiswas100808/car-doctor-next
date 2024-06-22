@@ -1,11 +1,15 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import logo from "../../../../public/assets/icons/logo.svg";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
 
 const NavBar = () => {
+  const session = useSession();
+  console.log(session);
   const navLinks = (
     <>
       <li className="font-semibold text-lg">
@@ -67,9 +71,18 @@ const NavBar = () => {
 
           <FaShoppingCart />
           <a className="btn btn-outline btn-primary text-white">Appiontment</a>
-          <Link href={"/login"}>
-            <button className="btn btn-primary text-white">Login</button>
-          </Link>
+          {!session.data ? (
+            <Link href={"/login"}>
+              <button className="btn btn-primary text-white">Login</button>
+            </Link>
+          ) : (
+            <button
+              onClick={() => signOut()}
+              className="btn btn-primary text-white"
+            >
+              Log Out
+            </button>
+          )}
         </div>
       </div>
     </div>
