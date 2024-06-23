@@ -27,9 +27,9 @@ const SignUpPage = () => {
     }
   };
   return (
-    <div>
+    <div className="px-3 lg:px-0">
       <div className="max-w-[1170px] mx-auto my-10">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row items-center gap-10">
           <div className="flex-1">
             <Image src={loginImage} alt="" height={500} width={500} />
           </div>

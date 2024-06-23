@@ -16,8 +16,8 @@ const SocialSignIn = () => {
     <div className="text-center mt-5">
       <h2 className="mb-3">Or Sign In With</h2>
       <div className="text-xl flex gap-3 justify-center">
-        <FaFacebookF className="cursor-pointer border " />
-        <FaLinkedin className="cursor-pointer border " />
+        {/* <FaFacebookF className="cursor-pointer border " />
+        <FaLinkedin className="cursor-pointer border " /> */}
         <FaGoogle
           onClick={() => handleSocialSignIn("google")}
           className="cursor-pointer border "

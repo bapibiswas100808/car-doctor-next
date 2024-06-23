@@ -16,6 +16,9 @@ const NavBar = () => {
         <Link href={"/"}>Home</Link>
       </li>
       <li className="font-semibold text-lg">
+        <Link href={"/my-bookings"}>My Bookings</Link>
+      </li>
+      <li className="font-semibold text-lg">
         <Link href={"/about"}>About</Link>
       </li>
       <li className="font-semibold text-lg">
@@ -66,7 +69,7 @@ const NavBar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
-        <div className="navbar-end flex gap-5">
+        <div className="navbar-end flex gap-5 text-xl">
           <FaSearch />
 
           <FaShoppingCart />

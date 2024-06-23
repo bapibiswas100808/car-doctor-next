@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ServiceCard = ({ service }) => {
@@ -16,7 +17,9 @@ const ServiceCard = ({ service }) => {
             </span>
             ${service?.price}
           </p>
-          <button className="btn btn-primary text-white">Details</button>
+          <Link href={`/services/${service._id}`}>
+            <button className="btn btn-primary text-white">View Details</button>
+          </Link>
         </div>
       </div>
     </div>
