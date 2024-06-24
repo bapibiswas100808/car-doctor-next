@@ -1,6 +1,8 @@
 "use client";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const Page = () => {
   const session = useSession();
@@ -17,6 +19,29 @@ const Page = () => {
   useEffect(() => {
     loadData();
   }, [session]);
+  const handleDelete = async (id) => {
+    const res = await fetch(
+      `http://localhost:3000/my-bookings/delete-booking/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+    const resp = await res.json();
+    console.log(resp);
+    if (resp?.Response?.deletedCount > 0) {
+      loadData();
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Your Booking has been Deleted",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
   return (
     <div className="max-w-[1170px] mx-auto">
       <h2 className="text-center text-3xl font-bold py-10">My Bookings</h2>
@@ -43,10 +68,15 @@ const Page = () => {
                     <td>{book?.date}</td>
                     <td>
                       <div className="flex gap-5">
-                        <button className="btn btn-primary text-white bg-green-500 border-0">
-                          Update
-                        </button>
-                        <button className="btn btn-primary text-white bg-red-500 border-0">
+                        <Link href={`/my-bookings/update/${book._id}`}>
+                          <button className="btn btn-primary text-white bg-green-500 border-0">
+                            Update
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(book._id)}
+                          className="btn btn-primary text-white bg-red-500 border-0"
+                        >
                           Delete
                         </button>
                       </div>
