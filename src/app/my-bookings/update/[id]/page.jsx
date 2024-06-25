@@ -16,7 +16,7 @@ const Page = ({ params }) => {
       date: e.target.date.value,
     };
     const resp = await fetch(
-      `http://localhost:3000/my-bookings/update/${params.id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/update/${params.id}`,
       {
         method: "PATCH",
         body: JSON.stringify(newService),

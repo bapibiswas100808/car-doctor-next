@@ -1,12 +1,11 @@
 "use client";
+import React, { Suspense } from "react";
 import Image from "next/image";
-import React from "react";
 import loginImage from "../../../public/assets/images/login/login.svg";
 import Link from "next/link";
-// import { FaFacebookF, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
 import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
-const SignUpPage = () => {
+const SignUp = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const newUser = {
@@ -14,7 +13,7 @@ const SignUpPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    const resp = await fetch("http://localhost:3000/signup/api", {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/signup/api`, {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
@@ -26,6 +25,7 @@ const SignUpPage = () => {
       e.target.reset();
     }
   };
+
   return (
     <div className="px-3 lg:px-0">
       <div className="max-w-[1170px] mx-auto my-10">
@@ -45,7 +45,7 @@ const SignUpPage = () => {
                   type="text"
                   name="name"
                   placeholder="Your name"
-                  id=""
+                  id="name"
                 />
               </div>
               <div className="mb-3">
@@ -57,7 +57,7 @@ const SignUpPage = () => {
                   type="email"
                   name="email"
                   placeholder="Your email"
-                  id=""
+                  id="email"
                 />
               </div>
               <div className="mb-3">
@@ -69,7 +69,7 @@ const SignUpPage = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  id=""
+                  id="password"
                 />
               </div>
               <button type="submit" className="btn btn-primary text-white mt-4">
@@ -90,6 +90,14 @@ const SignUpPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const SignUpPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignUp />
+    </Suspense>
   );
 };
 

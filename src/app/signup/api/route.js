@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/connectDB";
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   const newUser = await request.json();
@@ -15,9 +16,9 @@ export const POST = async (request) => {
       ...newUser,
       password: hashPassword,
     });
-    return Response.json({ message: "user created" }, { status: 200 });
+    return NextResponse.json({ message: "user created" }, { status: 200 });
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { message: "something went wrong", error },
       { status: 500 }
     );

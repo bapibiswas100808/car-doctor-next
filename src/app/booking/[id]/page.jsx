@@ -26,13 +26,16 @@ const Booking = ({ params }) => {
       Service_id: service?._id,
       service_price: service?.price,
     };
-    const resp = await fetch("http://localhost:3000/booking/api/new-booking", {
-      method: "POST",
-      body: JSON.stringify(newService),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    const resp = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/booking/api/new-booking`,
+      {
+        method: "POST",
+        body: JSON.stringify(newService),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
     if (resp) {
       Swal.fire({
         position: "top-center",

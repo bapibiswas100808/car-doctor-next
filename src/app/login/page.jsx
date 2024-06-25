@@ -1,17 +1,17 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import loginImage from "../../../public/assets/images/login/login.svg";
 import Image from "next/image";
-// import { FaFacebookF, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
-const LoginPage = () => {
+const Login = () => {
   const Router = useRouter();
   const searchParams = useSearchParams();
   const path = searchParams.get("redirect");
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -27,6 +27,7 @@ const LoginPage = () => {
       Router.push("/");
     }
   };
+
   return (
     <div className="max-w-[1170px] mx-auto my-10 px-3 lg:px-0">
       <div className="flex flex-col lg:flex-row items-center gap-10">
@@ -45,7 +46,7 @@ const LoginPage = () => {
                 type="email"
                 name="email"
                 placeholder="Your email"
-                id=""
+                id="email"
               />
             </div>
             <div className="mb-3">
@@ -57,7 +58,7 @@ const LoginPage = () => {
                 type="password"
                 name="password"
                 placeholder="password"
-                id=""
+                id="password"
               />
             </div>
             <button type="submit" className="btn btn-primary text-white mt-4">
@@ -77,6 +78,14 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const LoginPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Login />
+    </Suspense>
   );
 };
 

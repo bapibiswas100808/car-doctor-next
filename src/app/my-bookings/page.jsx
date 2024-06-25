@@ -9,7 +9,7 @@ const Page = () => {
   const [booking, setBooking] = useState([]);
   const loadData = async () => {
     const resp = await fetch(
-      `http://localhost:3000/my-bookings/api/${session?.data?.user?.email}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/${session?.data?.user?.email}`
     );
     const data = await resp.json();
     console.log(data);
@@ -21,7 +21,7 @@ const Page = () => {
   }, [session]);
   const handleDelete = async (id) => {
     const res = await fetch(
-      `http://localhost:3000/my-bookings/delete-booking/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/delete-booking/${id}`,
       {
         method: "DELETE",
         headers: {
