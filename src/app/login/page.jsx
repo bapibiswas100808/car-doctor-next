@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
-const Login = () => {
+const LoginComponent = () => {
   const Router = useRouter();
   const searchParams = useSearchParams();
   const path = searchParams.get("redirect");
@@ -89,4 +89,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+const LoginPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginComponent />
+    </Suspense>
+  );
+};
+
+export default LoginPage;

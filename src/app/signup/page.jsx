@@ -5,7 +5,7 @@ import loginImage from "../../../public/assets/images/login/login.svg";
 import Link from "next/link";
 import SocialSignIn from "@/components/SocialSignIn/SocialSignIn";
 
-const SignUp = () => {
+const SignUpComponent = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const newUser = {
@@ -98,7 +98,7 @@ const SignUp = () => {
 const SignUpPage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SignUp />
+      <SignUpComponent />
     </Suspense>
   );
 };
