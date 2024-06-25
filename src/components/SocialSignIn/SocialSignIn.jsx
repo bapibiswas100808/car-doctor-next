@@ -11,11 +11,11 @@ const SocialSignIn = () => {
   const handleSocialSignIn = (provider) => {
     const resp = signIn(provider, {
       redirect: true,
-      callbackUrl: path ? path : `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      callbackUrl: path ? path : "/",
     });
   };
   if (session.status === "authenticated") {
-    router.push(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+    router.push("/");
   }
   return (
     <div className="text-center mt-5">
