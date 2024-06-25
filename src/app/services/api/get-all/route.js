@@ -2,13 +2,21 @@ import { connectDB } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  const db = await connectDB();
-  const serviceCollection = db.collection("services");
   try {
-    const resp = await serviceCollection.find().toArray();
-    return NextResponse.json(resp);
+    const db = await connectDB();
+    if (!db) {
+      throw new Error("Database connection failed");
+    }
+
+    const serviceCollection = db.collection("services");
+    const services = await serviceCollection.find().toArray();
+
+    return NextResponse.json(services);
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ message: "something wrong" });
+    console.error("Error fetching services", error);
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 }
+    );
   }
 };

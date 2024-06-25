@@ -3,13 +3,18 @@ import { services } from "@/lib/services";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  const db = await connectDB();
-  const serviceCollection = db.collection("services");
   try {
+    const db = await connectDB();
+    const serviceCollection = db.collection("services");
     await serviceCollection.deleteMany();
-    const resp = await serviceCollection.insertMany(services);
-    return NextResponse.json({ message: "seeded successfully" });
+    await serviceCollection.insertMany(services);
+
+    return NextResponse.json({ message: "Seeded successfully" });
   } catch (error) {
-    console.log(error);
+    console.error("Error seeding the database", error);
+    return NextResponse.json(
+      { error: "Failed to seed the database" },
+      { status: 500 }
+    );
   }
 };

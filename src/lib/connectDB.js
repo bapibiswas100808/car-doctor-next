@@ -12,9 +12,11 @@ export const connectDB = async () => {
         deprecationErrors: true,
       },
     });
+    await client.connect();
     db = client.db("car-doctor-next");
     return db;
   } catch (error) {
-    console.log(error);
+    console.error("Failed to connect to the database", error);
+    throw new Error("Failed to connect to the database");
   }
 };
