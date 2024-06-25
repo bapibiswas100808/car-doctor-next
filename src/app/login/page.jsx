@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import loginImage from "../../../public/assets/images/login/login.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,12 @@ const Login = () => {
   const Router = useRouter();
   const searchParams = useSearchParams();
   const path = searchParams.get("redirect");
+
+  useEffect(() => {
+    if (!searchParams) {
+      return;
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -65,7 +71,9 @@ const Login = () => {
               Login
             </button>
           </form>
-          <SocialSignIn />
+          <Suspense fallback={<div>Loading social sign-ins...</div>}>
+            <SocialSignIn />
+          </Suspense>
           <div className="mt-5">
             <h2>Not Have an account?</h2>
             <p>
@@ -81,12 +89,4 @@ const Login = () => {
   );
 };
 
-const LoginPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Login />
-    </Suspense>
-  );
-};
-
-export default LoginPage;
+export default Login;

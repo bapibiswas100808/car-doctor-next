@@ -76,7 +76,9 @@ const SignUp = () => {
                 Sign Up
               </button>
             </form>
-            <SocialSignIn />
+            <Suspense fallback={<div>Loading social sign-ins...</div>}>
+              <SocialSignIn />
+            </Suspense>
             <div className="mt-5">
               <h2>Already Have an account?</h2>
               <p>
